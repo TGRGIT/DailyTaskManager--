@@ -9,7 +9,10 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-void delay();
+
+void delay(int);
+void puts(std::string);
+void putsDelay(std::string, int);
 
 int main(int argc, const char * argv[])
 {
@@ -17,19 +20,24 @@ int main(int argc, const char * argv[])
     
     while(1){
         cout << "\033[2J\033[1;1H";
-        cout << "Eat" << endl;
-        delay();
-        cout << "Sleep" << endl;
-        delay();
-        cout << "Rave" << endl;
-        delay();
-        cout << "Repeat" << endl;
-        delay();
+        putsDelay("Eat",1000);
+        putsDelay("Sleep",1000);
+        putsDelay("Rave",1000);
+        putsDelay("Repeat",1000);
     }
     return 0;
 }
 
-void delay(){
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+void delay(int ms){
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+void puts(std::string str){
+    std::cout << str << std::endl;
+}
+
+void putsDelay(std::string str, int ms){
+    puts(str);
+    delay(ms);
 }
 
